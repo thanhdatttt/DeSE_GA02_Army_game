@@ -1,19 +1,32 @@
 package Soldier;
 
 public abstract class Horseman {
+    int health;
+    int damage;
+    boolean isAlive;
+
+    Horseman() {
+        isAlive = true;
+        System.out.println("Horseman has been created");
+    }
+
     int hit() {
-        return 0;
+        return this.damage;
     }
 
     boolean wardOff(int strength) {
-        return false;
+        return strength >= this.health;
     }
 
     boolean isAlive() {
-        return false;
+        return this.isAlive;
+    }
+
+    int getDamage() {
+        return this.damage;
     }
 
     int getHealth() {
-        return 0;
+        return this.health;
     }
 }
