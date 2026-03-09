@@ -1,6 +1,6 @@
-import core.HorsemanSoldier;
-import core.InfantrymanSoldier;
-import core.Soldier;
+import Soldier.Factory.MedievalFactory;
+import Soldier.Factory.SoldierFactory;
+import Soldier.Soldier;
 import equipment.Decorator.ShieldDecorator;
 import equipment.Decorator.SwordDecorator;
 
@@ -8,20 +8,22 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("=== CREATE SOLDIER & EQUIPMENT ===");
 
+        SoldierFactory medievalFactory = new MedievalFactory();
+
         // infantry with sword and shield
-        Soldier infantry = new InfantrymanSoldier();
+        Soldier infantry = medievalFactory.createInfantryman();
         infantry = new SwordDecorator(infantry);
         infantry = new ShieldDecorator(infantry);
         
         // horseman with sword
-        Soldier cavalry = new HorsemanSoldier();
+        Soldier cavalry = medievalFactory.createHorseman();
         cavalry = new SwordDecorator(cavalry);
-        cavalry = new SwordDecorator(cavalry);
+        cavalry = new ShieldDecorator(cavalry);
 
         System.out.println("\n=== BATTLE TEST ===");
         System.out.println("Battle start!");
-        System.out.println("soldier 1 inrantry: " + infantry.getHealth());
-        System.out.println("Soldier 2 horseman: " + cavalry.getHealth());
+        System.out.println("Soldier 1: " + infantry.getName() + " has " + infantry.getHealth() + " health.");
+        System.out.println("Soldier 2: " + cavalry.getName() + " has " + cavalry.getHealth() + " health.");
         System.out.println("------------------------- \n");
 
         int round = 1;
