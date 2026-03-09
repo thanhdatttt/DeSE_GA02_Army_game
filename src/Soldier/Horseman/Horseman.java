@@ -33,12 +33,17 @@ public abstract class Horseman implements Soldier {
     }
 
     @Override
-    public int getDamage() {
-        return this.damage;
+    public int getHealth() {
+        return this.health;
     }
 
     @Override
-    public int getHealth() {
-        return this.health;
+    public void addShield(){
+        // do nothing
+    }
+
+    @Override
+    public void addSword(){
+        // do nothing
     }
 }

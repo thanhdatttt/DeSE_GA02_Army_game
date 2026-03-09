@@ -24,9 +24,6 @@ public abstract class EquipmentDecorator implements Soldier {
     public boolean isAlive() { return soldier.isAlive(); }
 
     @Override
-    public int getDamage() { return soldier.getDamage(); }
-
-    @Override
     public int getHealth() {
         return soldier.getHealth();
     }
@@ -37,4 +34,15 @@ public abstract class EquipmentDecorator implements Soldier {
             System.out.println(this.equipmentName + " has broken.");
         }
     }
+
+    @Override
+    public void addShield(){
+        // do nothing
+    }
+
+    @Override
+    public void addSword(){
+        // do nothing
+    }
+
 }

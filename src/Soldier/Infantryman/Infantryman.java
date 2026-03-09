@@ -31,12 +31,18 @@ public abstract class Infantryman implements Soldier {
     }
 
     @Override
-    public int getDamage() {
-        return this.damage;
-    }
-
-    @Override
     public int getHealth() {
         return this.health;
     }
+
+    @Override
+    public void addShield(){
+        // do nothing
+    }
+
+    @Override
+    public void addSword(){
+        // do nothing
+    }
+
 }
