@@ -1,17 +1,57 @@
 package Soldier.Proxy;
 
-import Equipment.Equipment;
-import Soldier.Soldier;
-
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
+import Soldier.Soldier;
+import equipment.Decorator.EquipmentDecorator;
+import equipment.Decorator.ShieldDecorator;
+import equipment.Decorator.SwordDecorator;
 
 public class SoldierProxy implements Soldier {
+
     private Soldier soldier;
-    private final Set<Class<?>> equipments =  new HashSet<Class<?>>();
+    private Set<String> equipments = new HashSet<>();
 
     public SoldierProxy(Soldier soldier) {
         this.soldier = soldier;
+    }
+
+    public void addEquipment(Function<Soldier, EquipmentDecorator> creator) {
+        EquipmentDecorator equipment = creator.apply(soldier);
+        String type = equipment.getEquipmentType();
+
+        if (this.equipments.contains(type)) {
+            System.out.println(soldier.getName() + " already has " + type);
+            return;
+        }
+
+        equipments.add(type);
+        System.out.println(soldier.getName() + " successfully added " + type);
+        soldier = equipment;
+
+    }
+
+    public void addShield() {
+        if (this.equipments.contains("shield")) {
+            System.out.println(soldier.getName() + " already has shield");
+            return;
+        } else {
+            System.out.println(soldier.getName() + " successfully added shield");
+            soldier = new ShieldDecorator(soldier);
+            equipments.add("shield");
+        }
+    }
+
+    public void addSword() {
+        if (this.equipments.contains("sword")) {
+            System.out.println(soldier.getName() + " already has sword");
+            return;
+        } else {
+            System.out.println(soldier.getName() + " successfully added sword");
+            soldier = new SwordDecorator(soldier);
+            equipments.add("sword");
+        }
     }
 
     @Override

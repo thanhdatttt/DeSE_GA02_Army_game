@@ -3,6 +3,9 @@ import Equipment.Sword;
 import Soldier.Factory.MedievalFactory;
 import Soldier.Factory.SoldierFactory;
 import Soldier.Group.Group;
+import Soldier.Soldier;
+import equipment.Decorator.ShieldDecorator;
+import equipment.Decorator.SwordDecorator;
 import Soldier.Proxy.SoldierProxy;
 
 public class Main {
@@ -19,6 +22,22 @@ public class Main {
         SoldierProxy horseman = new SoldierProxy(medievalFactory.createHorseman());
         horseman.addEquipment(new Sword());
         horseman.addEquipment(new Shield());
+        SoldierProxy infantryProxy = new SoldierProxy(medievalFactory.createInfantryman());
+
+        Soldier infantry = infantryProxy;
+
+        infantryProxy.addEquipment(ShieldDecorator::new);
+        infantryProxy.addEquipment(ShieldDecorator::new);
+        infantryProxy.addEquipment(SwordDecorator::new);
+        infantryProxy.addEquipment(SwordDecorator::new);
+
+        // horseman with sword
+        SoldierProxy calvaryProxy = new SoldierProxy(medievalFactory.createHorseman());
+        Soldier cavalry = calvaryProxy;
+
+        calvaryProxy.addShield();
+        calvaryProxy.addSword();
+
 
         System.out.println("\n=== BATTLE TEST ===");
         System.out.println("Battle start!");
