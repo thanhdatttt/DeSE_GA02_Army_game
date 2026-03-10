@@ -24,4 +24,11 @@ public abstract class EquipmentDecorator implements Soldier {
     public int getHealth() {
         return soldier.getHealth();
     }
+
+    @Override
+    public String getName() {
+        return soldier.getName();
+    }
+
+    public abstract String getEquipmentType();
 }

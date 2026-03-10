@@ -10,6 +10,11 @@ public class SwordDecorator extends EquipmentDecorator {
     }
 
     @Override
+    public String getName() {
+        return soldier.getName() + " with sword";
+    }
+
+    @Override
     public int hit() {
         int bonusAtk = 20;
         int damage = soldier.hit() + bonusAtk;
@@ -18,8 +23,9 @@ public class SwordDecorator extends EquipmentDecorator {
         return damage;
     }
 
+
     @Override
-    public String getName() {
-        return soldier.getName() + " with sword";
+    public String getEquipmentType() {
+        return "sword";
     }
 }
