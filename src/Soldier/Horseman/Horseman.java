@@ -3,8 +3,6 @@ package Soldier.Horseman;
 import Equipment.Equipment;
 import Soldier.Soldier;
 
-import java.sql.SQLOutput;
-
 public abstract class Horseman implements Soldier {
     int health;
     int damage;

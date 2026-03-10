@@ -1,8 +1,6 @@
 package Soldier.Factory;
 
-import Soldier.Horseman.Horseman;
 import Soldier.Horseman.ScienceFictionHorseman;
-import Soldier.Infantryman.Infantryman;
 import Soldier.Infantryman.ScienceFictionInfantryman;
 import Soldier.Soldier;
 
