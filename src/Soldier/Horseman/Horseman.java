@@ -1,6 +1,9 @@
 package Soldier.Horseman;
 
+import Equipment.Equipment;
 import Soldier.Soldier;
+
+import java.sql.SQLOutput;
 
 public abstract class Horseman implements Soldier {
     int health;
@@ -14,11 +17,13 @@ public abstract class Horseman implements Soldier {
 
     @Override
     public int hit() {
+        System.out.println(getName() + " deals " + damage + " damage.");
         return this.damage;
     }
 
     @Override
     public boolean wardOff(int strength) {
+        System.out.println(getName() + " takes " + strength + " damage.");
         if (strength <= this.health) {
             this.health -= strength;
             return true;
@@ -33,17 +38,22 @@ public abstract class Horseman implements Soldier {
     }
 
     @Override
+    public int getDamage() {
+        return this.damage;
+    }
+
+    @Override
     public int getHealth() {
         return this.health;
     }
 
     @Override
-    public void addShield(){
-        // do nothing
+    public int getSize(){
+        return 1;
     }
 
     @Override
-    public void addSword(){
+    public void addEquipment(Equipment equipment) {
         // do nothing
     }
 }

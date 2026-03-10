@@ -2,8 +2,9 @@ package Soldier.Factory;
 
 import Soldier.Horseman.Horseman;
 import Soldier.Infantryman.Infantryman;
+import Soldier.Soldier;
 
 public interface SoldierFactory {
-    abstract Horseman createHorseman();
-    abstract Infantryman createInfantryman();
+    abstract Soldier createHorseman();
+    abstract Soldier createInfantryman();
 }

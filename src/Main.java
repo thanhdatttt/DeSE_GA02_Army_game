@@ -1,43 +1,43 @@
+import Equipment.Shield;
+import Equipment.Sword;
 import Soldier.Factory.MedievalFactory;
 import Soldier.Factory.SoldierFactory;
-import Soldier.Soldier;
-import equipment.Decorator.ShieldDecorator;
-import equipment.Decorator.SwordDecorator;
+import Soldier.Group.Group;
+import Soldier.Proxy.SoldierProxy;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("=== CREATE SOLDIER & EQUIPMENT ===");
 
         SoldierFactory medievalFactory = new MedievalFactory();
+        Group medievalInfantrymanGroup = new Group(medievalFactory.createInfantryman(), medievalFactory.createHorseman());
 
-        // infantry with sword and shield
-        Soldier infantry = medievalFactory.createInfantryman();
-        infantry = new SwordDecorator(infantry);
-        infantry = new ShieldDecorator(infantry);
-        
-        // horseman with sword
-        Soldier cavalry = medievalFactory.createHorseman();
-        cavalry = new SwordDecorator(cavalry);
-        cavalry = new ShieldDecorator(cavalry);
+        SoldierProxy infantry = new SoldierProxy(medievalInfantrymanGroup);
+//        infantry.addEquipment(new Sword());
+//        infantry.addEquipment(new Shield());
+
+        SoldierProxy horseman = new SoldierProxy(medievalFactory.createHorseman());
+        horseman.addEquipment(new Sword());
+        horseman.addEquipment(new Shield());
 
         System.out.println("\n=== BATTLE TEST ===");
         System.out.println("Battle start!");
         System.out.println("Soldier 1: " + infantry.getName() + " has " + infantry.getHealth() + " health.");
-        System.out.println("Soldier 2: " + cavalry.getName() + " has " + cavalry.getHealth() + " health.");
+        System.out.println("Soldier 2: " + horseman.getName() + " has " + horseman.getHealth() + " health.");
         System.out.println("------------------------- \n");
 
         int round = 1;
-        while (infantry.isAlive() && cavalry.isAlive()) {
+        while (infantry.isAlive() && horseman.isAlive()) {
             System.out.println("--- Round " + round + " ---");
-            
+
             int damage1 = infantry.hit();
-            boolean cavSurvives = cavalry.wardOff(damage1);
+            boolean cavSurvives = horseman.wardOff(damage1);
             if (!cavSurvives) break;
 
-            int damage2 = cavalry.hit();
+            int damage2 = horseman.hit();
             boolean infSurvives = infantry.wardOff(damage2);
             if (!infSurvives) break;
-            
+
             System.out.println("\n");
             round++;
         }

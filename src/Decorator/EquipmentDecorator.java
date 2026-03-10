@@ -1,5 +1,6 @@
-package equipment.Decorator;
+package Decorator;
 
+import Equipment.Equipment;
 import Soldier.Soldier;
 
 // decorator class for equipment
@@ -24,8 +25,18 @@ public abstract class EquipmentDecorator implements Soldier {
     public boolean isAlive() { return soldier.isAlive(); }
 
     @Override
+    public int getDamage() {
+        return soldier.getDamage();
+    }
+
+    @Override
     public int getHealth() {
         return soldier.getHealth();
+    }
+
+    @Override
+    public int getSize(){
+        return soldier.getSize();
     }
 
     void useDurability() {
@@ -36,13 +47,7 @@ public abstract class EquipmentDecorator implements Soldier {
     }
 
     @Override
-    public void addShield(){
+    public void addEquipment(Equipment equipment) {
         // do nothing
     }
-
-    @Override
-    public void addSword(){
-        // do nothing
-    }
-
 }

@@ -1,4 +1,4 @@
-package equipment.Decorator;
+package Decorator;
 
 import Soldier.Soldier;
 
@@ -10,16 +10,16 @@ public class ShieldDecorator extends EquipmentDecorator {
 
     @Override
     public boolean wardOff(int strength) {
+        int bonusDef = 10 * soldier.getSize();
         if (durability > 0) {
+            System.out.println(soldier.getName() + " uses shield to block " +  bonusDef + " damage.");
             this.useDurability();
-            int bonusDef = 10;
             int damage = Math.max(0, strength - bonusDef);
-            System.out.println(" -> " + soldier.getName() + " uses Shield to protect: - " + bonusDef + " dmg.");
-            System.out.println(" -> Damage taken: " + damage + " dmg.");
             return soldier.wardOff(damage);
         }
-        else
+        else{
             return soldier.wardOff(strength);
+        }
     }
 
     @Override
