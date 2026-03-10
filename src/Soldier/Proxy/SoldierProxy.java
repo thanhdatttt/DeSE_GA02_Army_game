@@ -48,7 +48,7 @@ public class SoldierProxy implements Soldier {
             System.out.println(soldier.getName() + " already has sword");
             return;
         } else {
-            System.out.println(soldier.getName() + " successfully added shield");
+            System.out.println(soldier.getName() + " successfully added sword");
             soldier = new SwordDecorator(soldier);
             equipments.add("sword");
         }
