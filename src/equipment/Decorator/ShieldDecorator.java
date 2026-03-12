@@ -5,7 +5,7 @@ import Soldier.Soldier;
 // shield class
 public class ShieldDecorator extends EquipmentDecorator {
     public ShieldDecorator(Soldier soldier) {
-        super(soldier);
+        super(soldier, "Shield", 5);
     }
     
     @Override
@@ -15,13 +15,17 @@ public class ShieldDecorator extends EquipmentDecorator {
 
     @Override
     public boolean wardOff(int strength) {
-        int bonusDef = 10;
-        int damage = Math.max(0, strength - bonusDef);
-        System.out.println(" -> " + soldier.getName() + " uses shield to protect: - " + bonusDef + " dmg.");
-        System.out.println(" -> Damage taken: " + damage + " dmg.");
-        return soldier.wardOff(damage);
+        int bonusDef = 10 * soldier.getSize();
+        if (durability > 0) {
+            System.out.println(soldier.getName() + " uses shield to block " +  bonusDef + " damage.");
+            this.useDurability();
+            int damage = Math.max(0, strength - bonusDef);
+            return soldier.wardOff(damage);
+        }
+        else{
+            return soldier.wardOff(strength);
+        }
     }
-
 
     @Override
     public String getEquipmentType() {
