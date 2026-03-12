@@ -1,6 +1,5 @@
 package Soldier.Infantryman;
 
-import Equipment.Equipment;
 import Soldier.Soldier;
 
 public abstract class Infantryman implements Soldier {
@@ -48,10 +47,5 @@ public abstract class Infantryman implements Soldier {
     @Override
     public int getSize(){
         return 1;
-    }
-
-    @Override
-    public void addEquipment(Equipment equipment) {
-        // do nothing
     }
 }

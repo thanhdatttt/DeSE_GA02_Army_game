@@ -1,6 +1,5 @@
 package Soldier.Group;
 
-import Equipment.Equipment;
 import Soldier.Soldier;
 
 import java.util.ArrayList;
@@ -71,11 +70,6 @@ public class Group implements Soldier {
     @Override
     public String getName() {
         return "Group Soldier";
-    }
-
-    @Override
-    public void addEquipment(Equipment equipment) {
-
     }
 
     public void addSoldier(Soldier soldier){

@@ -1,4 +1,4 @@
-package equipment.Decorator;
+package Equipment.Decorator;
 
 import Soldier.Soldier;
 
@@ -26,6 +26,6 @@ public class SwordDecorator extends EquipmentDecorator {
 
     @Override
     public String getEquipmentType() {
-        return "sword";
+       return "sword";
     }
 }
