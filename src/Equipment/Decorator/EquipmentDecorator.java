@@ -5,8 +5,14 @@ import Soldier.Soldier;
 // decorator class for equipment
 public abstract class EquipmentDecorator implements Soldier {
     protected Soldier soldier;
+    protected String equipmentName;
+    protected int durability;
 
-    public EquipmentDecorator(Soldier soldier) { this.soldier = soldier; }
+    public EquipmentDecorator(Soldier soldier, String name,  int durability) {
+        this.soldier = soldier;
+        this.equipmentName = name;
+        this.durability = durability;
+    }
 
     @Override
     public int hit() { return soldier.hit(); }
@@ -35,5 +41,13 @@ public abstract class EquipmentDecorator implements Soldier {
         return soldier.getSize();
     }
 
+    void useDurability() {
+        durability--;
+        if (durability == 0) {
+            System.out.println(this.equipmentName + " has broken.");
+        }
+    }
+
     public abstract String getEquipmentType();
 }
+
