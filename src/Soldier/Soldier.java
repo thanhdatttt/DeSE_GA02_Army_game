@@ -7,4 +7,5 @@ public interface Soldier {
     int getDamage();
     int getHealth();
     String getName();
+    int getSize();
 }

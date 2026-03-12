@@ -1,4 +1,4 @@
-package equipment.Decorator;
+package Equipment.Decorator;
 
 import Soldier.Soldier;
 

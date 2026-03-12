@@ -1,18 +1,17 @@
 package Soldier.Factory;
 
-import Soldier.Horseman.Horseman;
 import Soldier.Horseman.ScienceFictionHorseman;
-import Soldier.Infantryman.Infantryman;
 import Soldier.Infantryman.ScienceFictionInfantryman;
+import Soldier.Soldier;
 
 public class ScienceFictionFactory implements SoldierFactory {
     @Override
-    public Horseman createHorseman() {
+    public Soldier createHorseman() {
         return new ScienceFictionHorseman();
     }
 
     @Override
-    public Infantryman createInfantryman() {
+    public Soldier createInfantryman() {
         return new ScienceFictionInfantryman();
     }
 }

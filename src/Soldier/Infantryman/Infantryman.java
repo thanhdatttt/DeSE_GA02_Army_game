@@ -13,10 +13,14 @@ public abstract class Infantryman implements Soldier {
     }
 
     @Override
-    public int hit() { return this.damage; }
+    public int hit() {
+        System.out.println(getName() + " deals " + damage + " damage.");
+        return this.damage;
+    }
 
     @Override
     public boolean wardOff(int strength) {
+        System.out.println(getName() + " takes " + strength + " damage.");
         if (strength <= this.health) {
             this.health -= strength;
             return true;
@@ -38,5 +42,10 @@ public abstract class Infantryman implements Soldier {
     @Override
     public int getHealth() {
         return this.health;
+    }
+
+    @Override
+    public int getSize(){
+        return 1;
     }
 }

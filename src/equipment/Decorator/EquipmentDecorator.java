@@ -1,4 +1,4 @@
-package equipment.Decorator;
+package Equipment.Decorator;
 
 import Soldier.Soldier;
 
@@ -28,6 +28,11 @@ public abstract class EquipmentDecorator implements Soldier {
     @Override
     public String getName() {
         return soldier.getName();
+    }
+
+    @Override
+    public int getSize(){
+        return soldier.getSize();
     }
 
     public abstract String getEquipmentType();

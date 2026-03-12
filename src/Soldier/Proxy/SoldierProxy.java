@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import Soldier.Soldier;
-import equipment.Decorator.EquipmentDecorator;
-import equipment.Decorator.ShieldDecorator;
-import equipment.Decorator.SwordDecorator;
+import Equipment.Decorator.EquipmentDecorator;
+import Equipment.Decorator.ShieldDecorator;
+import Equipment.Decorator.SwordDecorator;
 
 public class SoldierProxy implements Soldier {
 
@@ -29,7 +29,7 @@ public class SoldierProxy implements Soldier {
         equipments.add(type);
         System.out.println(soldier.getName() + " successfully added " + type);
         soldier = equipment;
-
+        
     }
 
     public void addShield() {
@@ -82,5 +82,10 @@ public class SoldierProxy implements Soldier {
     @Override
     public String getName() {
         return soldier.getName();
+    }
+
+    @Override
+    public int getSize() {
+        return soldier.getSize();
     }
 }
