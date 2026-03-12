@@ -6,7 +6,7 @@ import Soldier.Soldier;
 public class SwordDecorator extends EquipmentDecorator {
 
     public SwordDecorator(Soldier soldier) {
-        super(soldier);
+        super(soldier, "Sword", 5);
     }
 
     @Override
@@ -16,11 +16,18 @@ public class SwordDecorator extends EquipmentDecorator {
 
     @Override
     public int hit() {
-        int bonusAtk = 20;
-        int damage = soldier.hit() + bonusAtk;
-        System.out.println(" -> " + soldier.getName() + " uses Sword to slash: +" + bonusAtk + " dmg.");
-        System.out.println(" -> Total damage: " + damage + " dmg.");
-        return damage;
+        int bonusAtk = 20 * soldier.getSize();
+
+        if (durability > 0) {
+            useDurability();
+            int total_dmg = 0;
+            total_dmg = soldier.hit() + bonusAtk;
+            System.out.println(soldier.getName() + " uses sword to deal " + bonusAtk + " more damage.");
+            return total_dmg;
+        }
+        else {
+            return soldier.hit();
+        }
     }
 
 
