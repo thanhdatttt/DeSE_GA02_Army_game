@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import Soldier.Soldier;
+import Soldier.Visitor.SoldierVisitor;
 import Equipment.Decorator.EquipmentDecorator;
 import Equipment.Decorator.ShieldDecorator;
 import Equipment.Decorator.SwordDecorator;
@@ -87,5 +88,14 @@ public class SoldierProxy implements Soldier {
     @Override
     public int getSize() {
         return soldier.getSize();
+    }
+
+    @Override
+    public void accept(SoldierVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public Soldier getInnerSoldier() {
+        return soldier;
     }
 }

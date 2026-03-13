@@ -19,7 +19,7 @@ public class SwordDecorator extends EquipmentDecorator {
         int bonusAtk = 20 * soldier.getSize();
 
         if (durability > 0) {
-            useDurability();
+            this.useDurability();
             int total_dmg = 0;
             total_dmg = soldier.hit() + bonusAtk;
             System.out.println(soldier.getName() + " uses sword to deal " + bonusAtk + " more damage.");

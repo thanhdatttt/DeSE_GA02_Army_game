@@ -1,5 +1,7 @@
 package Soldier;
 
+import Soldier.Visitor.SoldierVisitor;
+
 public interface Soldier {
     int hit();
     boolean wardOff(int strength);
@@ -8,4 +10,6 @@ public interface Soldier {
     int getHealth();
     String getName();
     int getSize();
+
+    void accept(SoldierVisitor visitor);
 }
