@@ -1,6 +1,7 @@
-package Soldier.Group;
+package Army.Group;
 
 import Soldier.Soldier;
+import Soldier.Visitor.SoldierVisitor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -74,5 +75,14 @@ public class Group implements Soldier {
 
     public void addSoldier(Soldier soldier){
         soldiers.add(soldier);
+    }
+
+    @Override
+    public void accept(SoldierVisitor visitor) {
+        visitor.visit(this);
+        for (Soldier soldier : this.soldiers) {
+            soldier.accept(visitor);
+        }
+        visitor.exitGroup();
     }
 }

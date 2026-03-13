@@ -1,6 +1,7 @@
 package Soldier.Horseman;
 
 import Soldier.Soldier;
+import Soldier.Visitor.SoldierVisitor;
 
 public abstract class Horseman implements Soldier {
     int health;
@@ -47,5 +48,10 @@ public abstract class Horseman implements Soldier {
     @Override
     public int getSize(){
         return 1;
+    }
+
+    @Override
+    public void accept(SoldierVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -1,6 +1,7 @@
 package Equipment.Decorator;
 
 import Soldier.Soldier;
+import Soldier.Visitor.SoldierVisitor;
 
 // decorator class for equipment
 public abstract class EquipmentDecorator implements Soldier {
@@ -49,5 +50,14 @@ public abstract class EquipmentDecorator implements Soldier {
     }
 
     public abstract String getEquipmentType();
+
+    @Override
+    public void accept(SoldierVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public Soldier getInnerSoldier() {
+        return soldier;
+    }
 }
 
