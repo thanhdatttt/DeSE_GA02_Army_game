@@ -1,4 +1,4 @@
-package Soldier.Visitor;
+package Visitor;
 
 import Army.Group.Group;
 import Equipment.Decorator.EquipmentDecorator;

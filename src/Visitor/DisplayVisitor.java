@@ -1,4 +1,4 @@
-package Soldier.Visitor;
+package Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class DisplayVisitor implements SoldierVisitor {
     @Override
     public void visit(Group group) {
         String indent = "  ".repeat(groupDepth);
-        System.out.println(indent + "[Group] " + group.getName()
+        System.out.println(indent + group.getName()
                 + " — size: " + group.getSize()
                 + ", total HP: " + group.getHealth()
                 + ", total DMG: " + group.getDamage());
@@ -26,7 +26,7 @@ public class DisplayVisitor implements SoldierVisitor {
     @Override
     public void visit(Infantryman infantryman) {
         String indent = "  ".repeat(groupDepth);
-        System.out.println(indent + "[Infantryman] " + infantryman.getName()
+        System.out.println(indent + infantryman.getName()
                 + " | HP: " + infantryman.getHealth()
                 + " | DMG: " + infantryman.getDamage()
                 + " | Equipment: none");
@@ -35,7 +35,7 @@ public class DisplayVisitor implements SoldierVisitor {
     @Override
     public void visit(Horseman horseman) {
         String indent = "  ".repeat(groupDepth);
-        System.out.println(indent + "[Horseman] " + horseman.getName()
+        System.out.println(indent + horseman.getName()
                 + " | HP: " + horseman.getHealth()
                 + " | DMG: " + horseman.getDamage()
                 + " | Equipment: none");
@@ -43,21 +43,12 @@ public class DisplayVisitor implements SoldierVisitor {
 
     @Override
     public void visit(SoldierProxy proxy) {
-        String indent = "  ".repeat(groupDepth);
-        String type = resolveType(proxy.getInnerSoldier());
-        List<String> equipment = collectEquipment(proxy.getInnerSoldier());
- 
-        System.out.println(indent + "[" + type + "] " + proxy.getName()
-                + " | HP: " + proxy.getHealth()
-                + " | DMG: " + proxy.getDamage()
-                + " | Equipment: " + (equipment.isEmpty() ? "none" : String.join(", ", equipment)));
-        
-        // if the proxy wraps a Group, traverse into it
-        if (proxy.getInnerSoldier() instanceof Group) {
-            groupDepth++;
-            proxy.getInnerSoldier().accept(this);
-            groupDepth--;
+        Soldier inner = proxy.getInnerSoldier();
+        if(inner == null) {
+            System.out.println("Unknown Soldier");
+            return;
         }
+        inner.accept(this);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package Soldier.Infantryman;
 
 import Soldier.Soldier;
-import Soldier.Visitor.SoldierVisitor;
+import Visitor.SoldierVisitor;
 
 public abstract class Infantryman implements Soldier {
     int health;

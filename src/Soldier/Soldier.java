@@ -1,6 +1,6 @@
 package Soldier;
 
-import Soldier.Visitor.SoldierVisitor;
+import Visitor.SoldierVisitor;
 
 public interface Soldier {
     int hit();

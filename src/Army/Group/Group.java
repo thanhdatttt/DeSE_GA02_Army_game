@@ -1,7 +1,7 @@
 package Army.Group;
 
 import Soldier.Soldier;
-import Soldier.Visitor.SoldierVisitor;
+import Visitor.SoldierVisitor;
 
 import java.util.ArrayList;
 import java.util.Collections;

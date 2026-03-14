@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import Soldier.Soldier;
-import Soldier.Visitor.SoldierVisitor;
+import Visitor.SoldierVisitor;
 import Equipment.Decorator.EquipmentDecorator;
 import Equipment.Decorator.ShieldDecorator;
 import Equipment.Decorator.SwordDecorator;
@@ -12,7 +12,7 @@ import Equipment.Decorator.SwordDecorator;
 public class SoldierProxy implements Soldier {
 
     private Soldier soldier;
-    private Set<String> equipments = new HashSet<>();
+    private final Set<String> equipments = new HashSet<>();
 
     public SoldierProxy(Soldier soldier) {
         this.soldier = soldier;

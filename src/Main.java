@@ -3,8 +3,8 @@ import Soldier.Factory.SoldierFactory;
 import Soldier.Factory.WorldWarFactory;
 import Army.Group.Group;
 import Soldier.Proxy.SoldierProxy;
-import Soldier.Visitor.CountVisitor;
-import Soldier.Visitor.DisplayVisitor;
+import Visitor.CountVisitor;
+import Visitor.DisplayVisitor;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package Equipment.Decorator;
 
 import Soldier.Soldier;
-import Soldier.Visitor.SoldierVisitor;
+import Visitor.SoldierVisitor;
 
 // decorator class for equipment
 public abstract class EquipmentDecorator implements Soldier {
