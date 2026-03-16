@@ -51,7 +51,9 @@ public class SoldierProxy implements Soldier {
             soldier = equipment.equip(soldier);
             equipments.add(equipment.getClass());
         }
+        else {
             System.out.println("!!!  " + soldier.getName() + " already has " + equipment.getName());
+        }
     }
 
     @Override

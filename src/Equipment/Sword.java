@@ -7,7 +7,7 @@ public class Sword implements Equipment {
 
     @Override 
     public String getName() {
-        return "Shield";
+        return "Sword";
     }
 
     @Override
