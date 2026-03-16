@@ -2,6 +2,8 @@ import Soldier.Factory.MedievalFactory;
 import Soldier.Factory.SoldierFactory;
 import Soldier.Factory.WorldWarFactory;
 import Army.Group.Group;
+import Equipment.Shield;
+import Equipment.Sword;
 import Soldier.Proxy.SoldierProxy;
 import Visitor.CountVisitor;
 import Visitor.DisplayVisitor;
@@ -60,18 +62,18 @@ public class Main {
 
         // medieval army
         SoldierProxy mInf1 = new SoldierProxy(medievalFactory.createInfantryman());
-        mInf1.addSword();
-        mInf1.addShield();
+        mInf1.addEquipment(new Sword());
+        mInf1.addEquipment(new Shield());
         SoldierProxy mInf2 = new SoldierProxy(medievalFactory.createInfantryman());
-        mInf2.addSword();
-        mInf2.addShield();
+        mInf2.addEquipment(new Sword());
+        mInf2.addEquipment(new Shield());
 
         Group mInfantrySquad = new Group(mInf1, mInf2);
 
         SoldierProxy mHr1 = new SoldierProxy(medievalFactory.createHorseman());
-        mHr1.addSword();
+        mHr1.addEquipment(new Sword());
         SoldierProxy mHr2 = new SoldierProxy(medievalFactory.createHorseman());
-        mHr2.addSword();
+        mHr2.addEquipment(new Shield());
 
         Group mHorsemanSquad = new Group(mHr1, mHr2);
 
@@ -79,12 +81,12 @@ public class Main {
 
         // ww army
         SoldierProxy wHr1 = new SoldierProxy(wwFactory.createHorseman());
-        wHr1.addSword();
-        wHr1.addShield();
+        wHr1.addEquipment(new Sword());
+        wHr1.addEquipment(new Shield());
 
         SoldierProxy wHr2 = new SoldierProxy(wwFactory.createHorseman());
-        wHr2.addSword();
-        wHr2.addShield();
+        wHr2.addEquipment(new Sword());
+        wHr2.addEquipment(new Shield());
 
         Group wHorsemanSquad = new Group(wHr1, wHr2);
 

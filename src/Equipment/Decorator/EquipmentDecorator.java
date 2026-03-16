@@ -59,5 +59,6 @@ public abstract class EquipmentDecorator implements Soldier {
     public Soldier getInnerSoldier() {
         return soldier;
     }
+
 }
 
