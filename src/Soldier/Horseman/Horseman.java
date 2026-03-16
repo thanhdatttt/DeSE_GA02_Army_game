@@ -25,7 +25,7 @@ public abstract class Horseman implements Soldier {
     @Override
     public boolean wardOff(int strength) {
         System.out.println(getName() + " takes " + strength + " damage.");
-        if (strength <= this.health) {
+        if (strength < this.health) {
             this.health -= strength;
             return true;
         }

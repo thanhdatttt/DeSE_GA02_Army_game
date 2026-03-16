@@ -26,11 +26,11 @@ public class Main {
         Equipment sword = new Sword();
         Equipment shield = new Shield();
 
-        Observer DeathCountObserver = new DeathCountObserver();
-        Observer DeathNotifierObserver = new DeathNotifierObserver();
+        DeathCountObserver deathCountObserver = DeathCountObserver.getInstance();
+        DeathNotifierObserver deathNotifierObserver = DeathNotifierObserver.getInstance();
         ObserverManager manager = new ObserverManager();
-        manager.subscribe(DeathNotifierObserver);
-        manager.subscribe(DeathCountObserver);
+        manager.subscribe(deathNotifierObserver);
+        manager.subscribe(deathCountObserver);
 
 
         // BUILD ARMY ----------------------------------------------
@@ -41,10 +41,11 @@ public class Main {
         Soldier wwInfantry = wwFactory.createInfantryman();
         Soldier wwHorseman = wwFactory.createHorseman();
         Soldier sfInfantry = sfFactory.createInfantryman();
-        Soldier sfHorseman = sfFactory.createHorseman();
+        Soldier sfHorseman1 = sfFactory.createHorseman();
+        Soldier sfHorseman2 = sfFactory.createHorseman();
 
         Group m_wwGroup = new Group(mInfantry, mHorseman, wwInfantry, wwHorseman);
-        Group sfGroup = new Group(sfInfantry, sfHorseman);
+        Group sfGroup = new Group(sfInfantry, sfHorseman1, sfHorseman2);
 
         SoldierProxy m_ww_Proxy = new SoldierProxy(m_wwGroup);
         SoldierProxy sf_Proxy = new SoldierProxy(sfGroup);

@@ -10,7 +10,7 @@ public class ShieldDecorator extends EquipmentDecorator {
 
     @Override
     public boolean wardOff(int strength) {
-        int bonusDef = 10 * soldier.getSize();
+        int bonusDef = 100 * soldier.getSize();
         if (durability > 0) {
             System.out.println(soldier.getName() + " uses shield to block " +  bonusDef + " damage.");
             this.useDurability();
