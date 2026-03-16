@@ -7,11 +7,6 @@ public class ShieldDecorator extends EquipmentDecorator {
     public ShieldDecorator(Soldier soldier) {
         super(soldier, "Shield", 5);
     }
-    
-    @Override
-    public String getName() {
-        return soldier.getName() + " with shield";
-    }
 
     @Override
     public boolean wardOff(int strength) {

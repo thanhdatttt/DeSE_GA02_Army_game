@@ -1,16 +1,20 @@
 package Soldier.Infantryman;
 
+import Generator.NameGenerator;
+import Observer.ObserverManager;
 import Soldier.Soldier;
 import Visitor.SoldierVisitor;
 
 public abstract class Infantryman implements Soldier {
-    int health;
-    int damage;
-    boolean isAlive;
+    protected String name;
+    protected int health;
+    protected int damage;
+    protected boolean isAlive;
+    protected ObserverManager manager = null;
 
     Infantryman() {
         isAlive = true;
-        System.out.println("Infantryman has been created");
+        name = NameGenerator.getName();
     }
 
     @Override
@@ -27,6 +31,7 @@ public abstract class Infantryman implements Soldier {
             return true;
         }
         this.isAlive = false;
+        onDeath();
         return false;
     }
 
@@ -53,5 +58,11 @@ public abstract class Infantryman implements Soldier {
     @Override
     public void accept(SoldierVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public boolean setManager(ObserverManager manager) {
+        this.manager = manager;
+        return true;
     }
 }

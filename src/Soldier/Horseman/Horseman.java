@@ -1,16 +1,19 @@
 package Soldier.Horseman;
 
+import Observer.ObserverManager;
 import Soldier.Soldier;
 import Visitor.SoldierVisitor;
+import Generator.NameGenerator;
 
 public abstract class Horseman implements Soldier {
-    int health;
-    int damage;
-    boolean isAlive;
+    protected String name;
+    protected int health;
+    protected int damage;
+    protected boolean isAlive;
+    protected ObserverManager manager = null;
 
     Horseman() {
-        isAlive = true;
-        System.out.println("Horseman has been created");
+        name = NameGenerator.getName();
     }
 
     @Override
@@ -27,6 +30,7 @@ public abstract class Horseman implements Soldier {
             return true;
         }
         this.isAlive = false;
+        onDeath();
         return false;
     }
 
@@ -54,4 +58,11 @@ public abstract class Horseman implements Soldier {
     public void accept(SoldierVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public boolean setManager(ObserverManager manager) {
+        this.manager = manager;
+        return true;
+    }
+
 }

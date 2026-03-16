@@ -1,5 +1,6 @@
 package Equipment.Decorator;
 
+import Observer.ObserverManager;
 import Soldier.Soldier;
 import Visitor.SoldierVisitor;
 
@@ -38,6 +39,11 @@ public abstract class EquipmentDecorator implements Soldier {
     }
 
     @Override
+    public String getType() {
+        return soldier.getType();
+    }
+
+    @Override
     public int getSize(){
         return soldier.getSize();
     }
@@ -54,11 +60,20 @@ public abstract class EquipmentDecorator implements Soldier {
     @Override
     public void accept(SoldierVisitor visitor) {
         visitor.visit(this);
-    }
+}
 
     public Soldier getInnerSoldier() {
         return soldier;
     }
 
+    @Override
+    public boolean setManager(ObserverManager manager) {
+        return soldier.setManager(manager);
+    }
+
+    @Override
+    public void onDeath() {
+        soldier.onDeath();
+    }
 }
 

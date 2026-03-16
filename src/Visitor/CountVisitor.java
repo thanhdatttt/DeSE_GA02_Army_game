@@ -60,6 +60,10 @@ public class CountVisitor implements SoldierVisitor {
             infantryCount++;
         else if (inner instanceof Horseman) 
             horsemanCount++;
+        else if (inner instanceof Group) {
+            inner.accept(this);
+            return;
+        }
     }
 
     @Override
@@ -68,7 +72,7 @@ public class CountVisitor implements SoldierVisitor {
 
     public int getInfantryCount() { return infantryCount; }
     public int gethorsemanCount()  { return horsemanCount; }
- 
+
     public void printSummary() {
         System.out.println("=== Count Summary ===");
         System.out.println("  Infantry : " + infantryCount);

@@ -1,5 +1,8 @@
 package Army.Group;
 
+
+import Generator.NameGenerator;
+import Observer.ObserverManager;
 import Soldier.Soldier;
 import Visitor.SoldierVisitor;
 
@@ -9,13 +12,17 @@ import java.util.List;
 
 public class Group implements Soldier {
     private List<Soldier> soldiers = new ArrayList<Soldier>();
-
+    private final String name;
 
     public Group(List<Soldier> soldiers) {
         this.soldiers = soldiers;
+        name =  NameGenerator.getArmies();
+        System.out.println(name + " established!");
     }
     public Group(Soldier... Soldiers) {
         Collections.addAll(this.soldiers, Soldiers);
+        name =  NameGenerator.getArmies();
+        System.out.println(name + " established!");
     }
 
     @Override
@@ -69,8 +76,13 @@ public class Group implements Soldier {
     }
 
     @Override
-    public String getName() {
+    public String getType() {
         return "Group Soldier";
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     public void addSoldier(Soldier soldier){
@@ -84,5 +96,17 @@ public class Group implements Soldier {
             soldier.accept(visitor);
         }
         visitor.exitGroup();
+    }
+
+    @Override
+    public boolean setManager(ObserverManager manager) {
+        for  (Soldier soldier : soldiers) {
+            soldier.setManager(manager);
+        }
+        return true;
+    }
+
+    @Override
+    public void onDeath() {
     }
 }

@@ -1,96 +1,61 @@
+import Equipment.Equipment;
+import Observer.Observer;
+import Observer.DeathCountObserver;
+import Observer.DeathNotifierObserver;
+import Observer.ObserverManager;
 import Soldier.Factory.MedievalFactory;
+import Soldier.Factory.ScienceFictionFactory;
 import Soldier.Factory.SoldierFactory;
 import Soldier.Factory.WorldWarFactory;
 import Army.Group.Group;
 import Equipment.Shield;
 import Equipment.Sword;
 import Soldier.Proxy.SoldierProxy;
+import Soldier.Soldier;
 import Visitor.CountVisitor;
 import Visitor.DisplayVisitor;
 
+
 public class Main {
     public static void main(String[] args) {
-        // System.out.println("=== BUILD ARMY ===");
-
-        // SoldierFactory medievalFactory = new MedievalFactory();
-        // Group medievalInfantrymanGroup = new Group(medievalFactory.createInfantryman(), medievalFactory.createHorseman());
-
-        // SoldierProxy infantry = new SoldierProxy(medievalInfantrymanGroup);
-
-        // infantry.addEquipment(ShieldDecorator::new);
-        // infantry.addEquipment(ShieldDecorator::new);
-        // infantry.addEquipment(SwordDecorator::new);
-        // infantry.addEquipment(SwordDecorator::new);
-
-        // SoldierProxy horseman = new SoldierProxy(medievalFactory.createHorseman());
-        // horseman.addShield();
-        // horseman.addSword();
-        
-        // System.out.println("\n=== BATTLE TEST ===");
-        // System.out.println("Battle start!");
-        // System.out.println("Soldier 1: " + infantry.getName() + " has " + infantry.getHealth() + " health.");
-        // System.out.println("Soldier 2: " + horseman.getName() + " has " + horseman.getHealth() + " health.");
-        // System.out.println("------------------------- \n");
-
-        // int round = 1;
-        // while (infantry.isAlive() && horseman.isAlive()) {
-        //     System.out.println("--- Round " + round + " ---");
-
-        //     int damage1 = infantry.hit();
-        //     boolean cavSurvives = horseman.wardOff(damage1);
-        //     if (!cavSurvives) break;
-
-        //     int damage2 = horseman.hit();
-        //     boolean infSurvives = infantry.wardOff(damage2);
-        //     if (!infSurvives) break;
-
-        //     System.out.println("\n");
-        //     round++;
-        // }
-
-        // System.out.println("------------------------- \n");
-        // if (infantry.isAlive()) {
-        //     System.out.println("Infantry win!");
-        // } else {
-        //     System.out.println("Horseman win!");
-        // }
-
-        // BUILD AMRY ----------------------------------------------
-        System.out.println("=== BUILD ARMY ===");
+        // SETUP ENVIRONMENT
         SoldierFactory medievalFactory = new MedievalFactory();
         SoldierFactory wwFactory       = new WorldWarFactory();
+        SoldierFactory sfFactory       = new ScienceFictionFactory();
 
-        // medieval army
-        SoldierProxy mInf1 = new SoldierProxy(medievalFactory.createInfantryman());
-        mInf1.addEquipment(new Sword());
-        mInf1.addEquipment(new Shield());
-        SoldierProxy mInf2 = new SoldierProxy(medievalFactory.createInfantryman());
-        mInf2.addEquipment(new Sword());
-        mInf2.addEquipment(new Shield());
+        Equipment sword = new Sword();
+        Equipment shield = new Shield();
 
-        Group mInfantrySquad = new Group(mInf1, mInf2);
+        Observer DeathCountObserver = new DeathCountObserver();
+        Observer DeathNotifierObserver = new DeathNotifierObserver();
+        ObserverManager manager = new ObserverManager();
+        manager.subscribe(DeathNotifierObserver);
+        manager.subscribe(DeathCountObserver);
 
-        SoldierProxy mHr1 = new SoldierProxy(medievalFactory.createHorseman());
-        mHr1.addEquipment(new Sword());
-        SoldierProxy mHr2 = new SoldierProxy(medievalFactory.createHorseman());
-        mHr2.addEquipment(new Shield());
 
-        Group mHorsemanSquad = new Group(mHr1, mHr2);
+        // BUILD ARMY ----------------------------------------------
+        System.out.println("=== BUILD ARMY ===");
 
-        Group medievalArmy = new Group(mInfantrySquad, mHorsemanSquad);
+        Soldier mInfantry = medievalFactory.createInfantryman();
+        Soldier mHorseman = medievalFactory.createHorseman();
+        Soldier wwInfantry = wwFactory.createInfantryman();
+        Soldier wwHorseman = wwFactory.createHorseman();
+        Soldier sfInfantry = sfFactory.createInfantryman();
+        Soldier sfHorseman = sfFactory.createHorseman();
 
-        // ww army
-        SoldierProxy wHr1 = new SoldierProxy(wwFactory.createHorseman());
-        wHr1.addEquipment(new Sword());
-        wHr1.addEquipment(new Shield());
+        Group m_wwGroup = new Group(mInfantry, mHorseman, wwInfantry, wwHorseman);
+        Group sfGroup = new Group(sfInfantry, sfHorseman);
 
-        SoldierProxy wHr2 = new SoldierProxy(wwFactory.createHorseman());
-        wHr2.addEquipment(new Sword());
-        wHr2.addEquipment(new Shield());
+        SoldierProxy m_ww_Proxy = new SoldierProxy(m_wwGroup);
+        SoldierProxy sf_Proxy = new SoldierProxy(sfGroup);
 
-        Group wHorsemanSquad = new Group(wHr1, wHr2);
+        m_ww_Proxy.addEquipment(sword);
+        m_ww_Proxy.addEquipment(shield);
 
-        Group wwArmy = new Group(wHorsemanSquad);
+        sf_Proxy.addEquipment(shield);
+
+        m_ww_Proxy.setManager(manager);
+        sf_Proxy.setManager(manager);
 
         System.out.println("-------------------------");
 
@@ -99,22 +64,42 @@ public class Main {
         DisplayVisitor displayer = new DisplayVisitor();
         CountVisitor counter = new CountVisitor();
 
-        System.out.println("Medieval Amry summary:");
-        medievalArmy.accept(displayer);
-        medievalArmy.accept(counter);
+        System.out.println(m_ww_Proxy.getName() + " Army summary:");
+        m_ww_Proxy.accept(displayer);
+        m_ww_Proxy.accept(counter);
         counter.printSummary();
         System.out.println("\n");
 
-        System.out.println("World War Amry summary:");
-        wwArmy.accept(displayer);
-        wwArmy.accept(counter);
+        System.out.println(sf_Proxy.getName() + " Army summary:");
+        sf_Proxy.accept(displayer);
+        sf_Proxy.accept(counter);
         counter.printSummary();
 
         System.out.println("-------------------------");
-
-
-        System.out.println("\n=== BATTLE ===");
+        System.out.println("\n=== BATTLE TEST ===");
         System.out.println("Battle start!");
+        System.out.println("Army 1: " + m_ww_Proxy.getName() + " has " + m_ww_Proxy.getHealth() + " health.");
+        System.out.println("Army 2: " + sf_Proxy.getName() + " has " + sf_Proxy.getHealth() + " health.");
         System.out.println("------------------------- \n");
+
+        int round = 1;
+        while (m_ww_Proxy.isAlive() && sf_Proxy.isAlive()) {
+            System.out.println("--- Round " + round + " ---");
+
+            int damage = m_ww_Proxy.hit();
+            boolean isAlive = sf_Proxy.wardOff(damage);
+            if (!isAlive) break;
+            damage = sf_Proxy.hit();
+            isAlive = m_ww_Proxy.wardOff(damage);
+            if (!isAlive) break;
+            System.out.println("\n");
+            round++;
+        }
+        System.out.println("------------------------- \n");
+        if (m_ww_Proxy.isAlive()) {
+            System.out.println(m_ww_Proxy.getName() +" Army win!");
+        } else {
+            System.out.println(sf_Proxy.getName() + " Army win!");
+        }
     }
 }

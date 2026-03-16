@@ -1,6 +1,7 @@
 package Soldier.Proxy;
 
 import Equipment.Equipment;
+import Observer.ObserverManager;
 import Soldier.Soldier;
 import Visitor.SoldierVisitor;
 
@@ -45,6 +46,11 @@ public class SoldierProxy implements Soldier {
         return soldier.getName();
     }
 
+    @Override
+    public String getType() {
+        return soldier.getType();
+    }
+
     public void addEquipment(Equipment equipment) {
         if (!equipments.contains(equipment.getClass())) {
             System.out.println(soldier.getName() + " successfully added " + equipment.getName());
@@ -59,6 +65,16 @@ public class SoldierProxy implements Soldier {
     @Override
     public int getSize() {
         return soldier.getSize();
+    }
+
+    @Override
+    public boolean setManager(ObserverManager manager) {
+        return soldier.setManager(manager);
+    }
+
+    @Override
+    public void onDeath() {
+        soldier.onDeath();
     }
 
     @Override
