@@ -1,5 +1,4 @@
 import Equipment.Equipment;
-import Observer.Observer;
 import Observer.DeathCountObserver;
 import Observer.DeathNotifierObserver;
 import Observer.ObserverManager;

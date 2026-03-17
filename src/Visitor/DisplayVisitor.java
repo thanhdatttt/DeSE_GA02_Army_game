@@ -5,7 +5,6 @@ import java.util.List;
 
 import Army.Group.Group;
 import Equipment.Decorator.EquipmentDecorator;
-import Equipment.Equipment;
 import Soldier.Soldier;
 import Soldier.Horseman.Horseman;
 import Soldier.Infantryman.Infantryman;
@@ -65,27 +64,5 @@ public class DisplayVisitor implements SoldierVisitor {
     @Override
     public void exitGroup() {
         if (groupDepth > 0) groupDepth--;
-    }
-
-    // Walk down the decorator chain to find the base soldier type. 
-    private String resolveType(Soldier soldier) {
-        if (soldier instanceof EquipmentDecorator) {
-            return resolveType(((EquipmentDecorator) soldier).getInnerSoldier());
-        }
-        if (soldier instanceof Infantryman) return "Infantryman";
-        if (soldier instanceof Horseman)    return "Horseman";
-        if (soldier instanceof Group)       return "Group";
-        return "Unknown";
-    }
-
-    // Collect all equipment names from the decorator chain.
-    private List<String> collectEquipment(Soldier soldier) {
-        List<String> result = new ArrayList<>();
-        while (soldier instanceof EquipmentDecorator) {
-            EquipmentDecorator dec = (EquipmentDecorator) soldier;
-            result.add(0, dec.getEquipmentType());
-            soldier = dec.getInnerSoldier();
-        }
-        return result;
     }
 }
