@@ -1,7 +1,6 @@
 package Equipment.Decorator.SwordDecorator;
 
 import Equipment.Decorator.EquipmentDecorator;
-import Equipment.Equipment;
 import Soldier.Soldier;
 
 // sword class
