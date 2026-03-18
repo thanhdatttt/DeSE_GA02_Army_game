@@ -1,5 +1,6 @@
 package Soldier;
 
+import Equipment.Equipment;
 import Observer.ObserverManager;
 import Visitor.SoldierVisitor;
 
@@ -12,6 +13,9 @@ public interface Soldier {
     String getName();
     String getType();
     int getSize();
+    void heal(int amount);
+
+    Soldier addEquipment(Equipment equipment);
 
     boolean setManager(ObserverManager manager);
     void onDeath();

@@ -1,5 +1,6 @@
 package Soldier.Infantryman;
 
+import Equipment.Equipment;
 import Generator.NameGenerator;
 import Observer.ObserverManager;
 import Soldier.Soldier;
@@ -64,5 +65,15 @@ public abstract class Infantryman implements Soldier {
     public boolean setManager(ObserverManager manager) {
         this.manager = manager;
         return true;
+    }
+
+    @Override
+    public void heal(int amount) {
+        this.health += amount;
+    }
+
+    @Override
+    public Soldier addEquipment(Equipment equipment){
+        return equipment.equip(this);
     }
 }

@@ -1,5 +1,6 @@
 package Soldier.Horseman;
 
+import Equipment.Equipment;
 import Observer.ObserverManager;
 import Soldier.Soldier;
 import Visitor.SoldierVisitor;
@@ -63,6 +64,16 @@ public abstract class Horseman implements Soldier {
     public boolean setManager(ObserverManager manager) {
         this.manager = manager;
         return true;
+    }
+
+    @Override
+    public void heal(int amount) {
+        this.health += amount;
+    }
+
+    @Override
+    public Soldier addEquipment(Equipment equipment){
+        return equipment.equip(this);
     }
 
 }

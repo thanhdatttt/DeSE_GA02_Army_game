@@ -1,14 +1,10 @@
-import Equipment.Equipment;
-import Observer.DeathCountObserver;
-import Observer.DeathNotifierObserver;
-import Observer.ObserverManager;
+import Army.Group.Group;
+import Equipment.*;
+import Observer.*;
 import Soldier.Factory.MedievalFactory;
 import Soldier.Factory.ScienceFictionFactory;
 import Soldier.Factory.SoldierFactory;
 import Soldier.Factory.WorldWarFactory;
-import Army.Group.Group;
-import Equipment.Shield;
-import Equipment.Sword;
 import Soldier.Proxy.SoldierProxy;
 import Soldier.Soldier;
 import Visitor.CountVisitor;
@@ -22,8 +18,9 @@ public class Main {
         SoldierFactory wwFactory       = new WorldWarFactory();
         SoldierFactory sfFactory       = new ScienceFictionFactory();
 
-        Equipment sword = new Sword();
-        Equipment shield = new Shield();
+        Equipment mainWeapon = new MainWeapon();
+        Equipment offhand = new Offhand();
+        Equipment armor = new Armor();
 
         DeathCountObserver deathCountObserver = DeathCountObserver.getInstance();
         DeathNotifierObserver deathNotifierObserver = DeathNotifierObserver.getInstance();
@@ -41,18 +38,19 @@ public class Main {
         Soldier wwHorseman = wwFactory.createHorseman();
         Soldier sfInfantry = sfFactory.createInfantryman();
         Soldier sfHorseman1 = sfFactory.createHorseman();
-        Soldier sfHorseman2 = sfFactory.createHorseman();
+//        Soldier sfHorseman2 = sfFactory.createHorseman();
 
         Group m_wwGroup = new Group(mInfantry, mHorseman, wwInfantry, wwHorseman);
-        Group sfGroup = new Group(sfInfantry, sfHorseman1, sfHorseman2);
+        Group sfGroup = new Group(sfInfantry, sfHorseman1);
 
-        SoldierProxy m_ww_Proxy = new SoldierProxy(m_wwGroup);
-        SoldierProxy sf_Proxy = new SoldierProxy(sfGroup);
+        Soldier m_ww_Proxy = new SoldierProxy(m_wwGroup);
+        Soldier sf_Proxy = new SoldierProxy(sfGroup);
 
-        m_ww_Proxy.addEquipment(sword);
-        m_ww_Proxy.addEquipment(shield);
+        m_ww_Proxy = m_ww_Proxy.addEquipment(mainWeapon);
+        m_ww_Proxy = m_ww_Proxy.addEquipment(offhand);
+        m_ww_Proxy = m_ww_Proxy.addEquipment(armor);
 
-        sf_Proxy.addEquipment(shield);
+        sf_Proxy = sf_Proxy.addEquipment(offhand);
 
         m_ww_Proxy.setManager(manager);
         sf_Proxy.setManager(manager);

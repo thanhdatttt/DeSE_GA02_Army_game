@@ -1,5 +1,6 @@
 package Equipment.Decorator;
 
+import Equipment.Equipment;
 import Observer.ObserverManager;
 import Soldier.Soldier;
 import Visitor.SoldierVisitor;
@@ -8,7 +9,7 @@ import Visitor.SoldierVisitor;
 public abstract class EquipmentDecorator implements Soldier {
     protected Soldier soldier;
     protected String equipmentName;
-    protected int durability;
+    private int durability;
 
     public EquipmentDecorator(Soldier soldier, String name,  int durability) {
         this.soldier = soldier;
@@ -48,9 +49,13 @@ public abstract class EquipmentDecorator implements Soldier {
         return soldier.getSize();
     }
 
-    void useDurability() {
-        durability--;
-        if (durability == 0) {
+    protected int getDurability() {
+        return durability;
+    }
+
+    protected void useDurability() {
+        this.durability--;
+        if (this.durability == 0) {
             System.out.println(this.equipmentName + " has broken.");
         }
     }
@@ -75,5 +80,16 @@ public abstract class EquipmentDecorator implements Soldier {
     public void onDeath() {
         soldier.onDeath();
     }
+
+    @Override
+    public void heal(int amount) {
+        soldier.heal(amount);
+    }
+
+    @Override
+    public Soldier addEquipment(Equipment equipment){
+        return equipment.equip(this);
+    }
+
 }
 

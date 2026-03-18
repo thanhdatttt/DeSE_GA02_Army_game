@@ -1,6 +1,7 @@
 package Army.Group;
 
 
+import Equipment.Equipment;
 import Generator.NameGenerator;
 import Observer.ObserverManager;
 import Soldier.Soldier;
@@ -11,14 +12,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class Group implements Soldier {
-    private List<Soldier> soldiers = new ArrayList<Soldier>();
+    private final List<Soldier> soldiers = new ArrayList<Soldier>();
     private final String name;
 
-    public Group(List<Soldier> soldiers) {
-        this.soldiers = soldiers;
-        name =  NameGenerator.getArmies();
-        System.out.println(name + " established!");
-    }
     public Group(Soldier... Soldiers) {
         Collections.addAll(this.soldiers, Soldiers);
         name =  NameGenerator.getArmies();
@@ -29,7 +25,7 @@ public class Group implements Soldier {
     public int hit() {
         int total_dmg = 0;
         for(Soldier soldier : soldiers) {
-            total_dmg += soldier.getDamage();
+            total_dmg += soldier.hit();
         };
         System.out.println(getName() + " deals " + total_dmg + " damage.");
         return total_dmg;
@@ -38,7 +34,7 @@ public class Group implements Soldier {
     @Override
     public boolean wardOff(int strength) {
         System.out.println(getName() + " takes " + strength + " damage.");
-        int intake_dmg = strength / soldiers.size();
+        int intake_dmg = strength / this.getSize();
         soldiers.removeIf(soldier -> !soldier.wardOff(intake_dmg));
         return isAlive();
     }
@@ -85,10 +81,6 @@ public class Group implements Soldier {
         return name;
     }
 
-    public void addSoldier(Soldier soldier){
-        soldiers.add(soldier);
-    }
-
     @Override
     public void accept(SoldierVisitor visitor) {
         visitor.visit(this);
@@ -107,6 +99,18 @@ public class Group implements Soldier {
     }
 
     @Override
-    public void onDeath() {
+    public void onDeath() {}
+
+    @Override
+    public void heal(int amount) {
+        for (Soldier soldier : soldiers) {
+            soldier.heal(amount);
+        }
+    }
+
+    @Override
+    public Soldier addEquipment(Equipment equipment) {
+        soldiers.replaceAll(soldier -> soldier.addEquipment(equipment));
+        return this;
     }
 }

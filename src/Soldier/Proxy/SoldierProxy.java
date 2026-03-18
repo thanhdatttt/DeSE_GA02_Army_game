@@ -51,15 +51,18 @@ public class SoldierProxy implements Soldier {
         return soldier.getType();
     }
 
-    public void addEquipment(Equipment equipment) {
+
+    @Override
+    public Soldier addEquipment(Equipment equipment) {
         if (!equipments.contains(equipment.getClass())) {
-            System.out.println(soldier.getName() + " successfully added " + equipment.getName());
-            soldier = equipment.equip(soldier);
+            System.out.println(soldier.getName() + " successfully added " + equipment.getClass().getSimpleName());
             equipments.add(equipment.getClass());
+            soldier = soldier.addEquipment(equipment);
         }
         else {
-            System.out.println("!!!  " + soldier.getName() + " already has " + equipment.getName());
+            System.out.println("!!!  " + soldier.getName() + " already has " + equipment.getClass().getSimpleName());
         }
+        return soldier;
     }
 
     @Override
@@ -80,6 +83,11 @@ public class SoldierProxy implements Soldier {
     @Override
     public void accept(SoldierVisitor visitor) {
         soldier.accept(visitor);
+    }
+
+    @Override
+    public void heal(int amount) {
+        soldier.heal(amount);
     }
 
     public Soldier getInnerSoldier() {
